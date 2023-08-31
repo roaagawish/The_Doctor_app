@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1086158437746",
+    "project_id": "meidcal-app-46c14",
+    "storage_bucket": "meidcal-app-46c14.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086158437746:android:10dc5729ae16173acff1eb",
+        "android_client_info": {
+          "package_name": "com.example.doctor_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086158437746-r220ahtkiil1ks07mn5mlk2c04jhqjuf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhfgM4hNVlauqNt7Z0RCKLECzCPJ6Ht7E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086158437746-r220ahtkiil1ks07mn5mlk2c04jhqjuf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
