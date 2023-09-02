@@ -1,3 +1,5 @@
+import 'package:doctor_app/screens/appointment_screen.dart';
+import 'package:doctor_app/screens/home_screen.dart';
 import 'package:doctor_app/screens/profile_screen.dart';
 import 'package:doctor_app/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,7 +28,7 @@ class My_doctor_app extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-        home: showHome ? Welcome_Screen() : Introduction_Screen(),
+        home:  showHome ? Welcome_Screen() : Introduction_Screen(),
     );
   }
 }

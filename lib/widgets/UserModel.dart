@@ -1,19 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+
 class UserModel {
 
   String? email;
   String? name;
-
   String? phone;
-
   String? age;
-
   String? gender;
 
 
-  UserModel({this.email, this.name, this.phone, this.age, this.gender});
+  UserModel({this.email, this.name, this.phone, this.age, this.gender,} );
 
   Map<String, dynamic> toJason() =>
       {
@@ -25,7 +23,7 @@ class UserModel {
       };
 
 
-  factory UserModel.fromMap(Map<String, dynamic> jason) =>
+  factory UserModel.fromJason(Map<String, dynamic> jason) =>
       UserModel(
         name: jason["name"] == null ? null : jason["name"],
         email: jason["email"] == null ? null : jason["email"],
@@ -34,35 +32,82 @@ class UserModel {
         gender: jason["gender"] == null ? null : jason["gender"],
       );
 
+
 }
-  UserProvider() async {
 
-   String documentId = 'your_document_id';
-   CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-   DocumentSnapshot documentSnapshot = await usersCollection.doc(documentId).get();
+class UserModelProvider {
 
-   if (documentSnapshot.exists) {
-   Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
-   // Access individual fields from the data map
-   String name = data['name'];
-   String email = data['email'];
-   // ...
-   }
 
   UserModel? userModel;
-  String? userEmail = FirebaseAuth.instance.currentUser!.email;
+  String? user = FirebaseAuth.instance.currentUser!.email!;
+
 
   Future<UserModel?> getUserData() async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc()
-        .get()
-        .then((value) {
-      userModel = UserModel.fromMap(value.data()!);
-       print(userModel);
-       print(value.data());
+      var response = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user)
+          .get()
+          .then((value) {
+        userModel = UserModel.fromJason(value.data()!);
+        print("****************************************************");
+        print(userModel);
+        print(value.data());
+        print("****************************************************");
+      }
+      );
       return userModel;
     }
+  }
+/**************************************************************************************************/
+
+class DataModel {
+
+  String? name;
+  String? location;
+  String? rating;
+  String? specialty;
+  String? fees;
+
+  DataModel({this.name, this.location ,this.rating, this.specialty, this.fees});
+
+  Map<String, dynamic> toJason() =>
+      {
+        'name': name,
+        'location' : location,
+        'rating': rating,
+        'specialty': specialty,
+        'fees': fees,
+      };
+
+
+  factory DataModel.fromJason(Map<String, dynamic> jason) =>
+      DataModel(
+        name: jason["name"] == null ? null : jason["name"],
+        location: jason["location"] == null ? null : jason["location"],
+        rating: jason["rating"] == null ? null : jason["rating"],
+        specialty: jason["specialty"] == null ? null : jason["specialty"],
+        fees: jason["fees"] == null ? null : jason["fees"],
+      );
+
+}
+
+class DataModelProvider {
+
+  DataModel? dataModel;
+
+  Future<DataModel?> getData() async {
+    var response = await FirebaseFirestore.instance
+        .collection('data')
+        .doc('firstdoctor')
+        .get()
+        .then((value) {
+      dataModel = DataModel.fromJason(value.data()!);
+      print("****************************************************");
+      print(dataModel);
+      print(value.data());
+      print("****************************************************");
+    }
     );
+    return dataModel;
   }
 }

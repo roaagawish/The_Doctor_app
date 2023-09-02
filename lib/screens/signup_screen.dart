@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_app/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Signup_Screen extends StatefulWidget {
-  const Signup_Screen({super.key });
+
+   Signup_Screen({super.key });
 
 
   @override
@@ -25,7 +27,7 @@ class _Signup_ScreenState extends State<Signup_Screen> {
   TextEditingController ageController = TextEditingController();
   TextEditingController genderController = TextEditingController();
 
-  String? userEmail = FirebaseAuth.instance.currentUser!.email;
+  String? userid ;
 
   Future addUser({
     required String name ,
@@ -37,7 +39,7 @@ class _Signup_ScreenState extends State<Signup_Screen> {
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    await firestore.collection('users').doc(userEmail).set({
+    await firestore.collection('users').doc(email).set({
       'name' : name ,
       'phone' : phone ,
       'email' : email,
@@ -94,7 +96,7 @@ class _Signup_ScreenState extends State<Signup_Screen> {
                     if (value!.isEmpty)  {
                       return "Phone Number must not be empty";
                     } else if (value.length < 11) {
-                      return " Phonne Number must be 11 digit";
+                      return " Phone Number must be 11 digit";
                     }
                      return null ;
                     },
@@ -300,4 +302,12 @@ class _Signup_ScreenState extends State<Signup_Screen> {
     );
   }
 }
+class passUserData {
 
+   String? userid;
+   String? name ;
+   String? phone ;
+   String? email ;
+   String? age ;
+   String? gender ;
+}
