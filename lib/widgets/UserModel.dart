@@ -43,7 +43,7 @@ class UserModelProvider {
 
 
   Future<UserModel?> getUserData() async {
-      var response = await FirebaseFirestore.instance
+    await FirebaseFirestore.instance
           .collection('users')
           .doc(user)
           .get()
@@ -95,8 +95,9 @@ class DataModelProvider {
 
   DataModel? dataModel;
 
+
   Future<DataModel?> getData() async {
-    var response = await FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('data')
         .doc('firstdoctor')
         .get()

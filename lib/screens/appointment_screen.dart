@@ -1,26 +1,32 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/UserModel.dart';
 
 class Appointment_Screen extends StatefulWidget {
-
   String? img;
+  String? name;
+  String? rating;
+  String? specialty;
+  String? location;
+  String? fees;
 
-  Appointment_Screen ({required this.img});
+  Appointment_Screen({
+    required this.img,
+    required this.name,
+    required this.rating,
+    required this.specialty,
+    required this.location,
+    required this.fees,
+  });
 
   @override
   State<Appointment_Screen> createState() => _Appointment_ScreenState();
 }
 
 class _Appointment_ScreenState extends State<Appointment_Screen> {
-
-
   DataModel? dataModel;
   bool loading = true;
-
-
 
   @override
   void initState() {
@@ -40,10 +46,38 @@ class _Appointment_ScreenState extends State<Appointment_Screen> {
     "assets/images/doctor3.jpg",
     "assets/images/doctor4.jpg",
   ];
+  List data = [
+  {
+  'image' :"assets/images/doctor1.jpg",
+  'name': "Hoda Mohamed",
+  'rating': "4.9",
+  'specialty': "Dermatology" ,
+  'location': 'Cairo',
+  'fees': '200' ,
+},
+{
+'image' :"assets/images/doctor2.jpg",
+'name': "Manal Farouk",
+'rating': "4.8" ,
+'specialty': "Dentistry",
+'location': "Alexandria",
+'fees': "250",
+},
+{
+'image' :"assets/images/doctor3.jpg",
+'name': "Ayman Salah",
+'rating': "4.6",
+'specialty': "Surgery" ,
+'location': "Fayoum",
+'fees': "500",
+},
+{
+'image' :"assets/images/doctor4.jpg",
+}
+];
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Color(0xff7165D6),
       body: loading
@@ -92,17 +126,15 @@ class _Appointment_ScreenState extends State<Appointment_Screen> {
                                 children: [
                                   CircleAvatar(
                                     radius: 35,
-                                    backgroundImage:
-                                        AssetImage(widget.img!),
+                                    backgroundImage: AssetImage(widget.img!),
                                   ),
                                   SizedBox(
                                     height: 5,
                                   ),
-                                  Text(
-                                      dataModel != null
-                                          ? dataModel!.name!
-                                          :
-                                      "Failed to load data",
+                                  Text( widget.name!,
+                                    // dataModel != null
+                                    //     ? dataModel!.name!
+                                    //     : "Failed to load data",
                                     style: TextStyle(
                                       fontSize: 23,
                                       color: Colors.white,
@@ -112,11 +144,11 @@ class _Appointment_ScreenState extends State<Appointment_Screen> {
                                   SizedBox(
                                     height: 5,
                                   ),
-                                  Text(
+                                  Text(widget.specialty!,
                                     // dataModel != null
                                     //     ? dataModel!.specialty!
                                     //     :
-                                    "Failed to load data",
+                                    // "Failed to load data",
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
@@ -217,11 +249,10 @@ class _Appointment_ScreenState extends State<Appointment_Screen> {
                                   Icons.star,
                                   color: Colors.amber,
                                 ),
-                                Text(
-                                  dataModel != null
-                                      ? dataModel!.rating!
-                                      :
-                                  "Failed to load data",
+                                Text(widget.rating!,
+                                  // dataModel != null
+                                  //     ? dataModel!.rating!
+                                  //     : "Failed to load data",
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
@@ -261,7 +292,7 @@ class _Appointment_ScreenState extends State<Appointment_Screen> {
                               height: 160,
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: 4,
+                                  itemCount: 3,
                                   itemBuilder: (context, index) {
                                     return Container(
                                       margin: EdgeInsets.all(
@@ -290,13 +321,12 @@ class _Appointment_ScreenState extends State<Appointment_Screen> {
                                               leading: CircleAvatar(
                                                 radius: 25,
                                                 backgroundImage: AssetImage(
-                                                    "${imgs[index]}"),
+                                                    "${data[index]['image']}"),
                                               ),
-                                              title: Text(
-                                                dataModel != null
-                                                    ? dataModel!.name!
-                                                    :
-                                                "Failed to load data",
+                                              title: Text("${data[index]['name']}",
+                                                // dataModel != null
+                                                //     ? dataModel!.name!
+                                                //     : "Failed to load data",
                                                 style: TextStyle(
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold,
@@ -312,11 +342,10 @@ class _Appointment_ScreenState extends State<Appointment_Screen> {
                                                     Icons.star,
                                                     color: Colors.amber,
                                                   ),
-                                                  Text(
-                                                    dataModel != null
-                                                        ? dataModel!.rating!
-                                                        :
-                                                    "Failed to load data",
+                                                  Text("${data[index]['rating']}",
+                                                    // dataModel != null
+                                                    //     ? dataModel!.rating!
+                                                    //     : "Failed to load data",
                                                     style: TextStyle(
                                                       fontSize: 16,
                                                       fontWeight:
@@ -369,18 +398,18 @@ class _Appointment_ScreenState extends State<Appointment_Screen> {
                                   size: 30,
                                 ),
                               ),
-                              title: Text(
-                                  // dataModel != null
-                                  //     ? dataModel!.location!
-                                  //     :
-                                  "Failed to load data",
+                              title: Text(widget.location!,
+                                // dataModel != null
+                                //     ? dataModel!.location!
+                                //     :
+                                // "Failed to load data",
                                 style: TextStyle(
                                   //color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               subtitle:
-                                  Text("Adress line of the  medical center,"),
+                                  Text("Address line of the  medical center,"),
                             )
                           ],
                         ),
@@ -410,12 +439,8 @@ class _Appointment_ScreenState extends State<Appointment_Screen> {
                   "Consultation Price",
                   style: TextStyle(color: Colors.black54, fontSize: 16),
                 ),
-                Text(
-                   "\$${
-                        dataModel != null
-                      ? dataModel!.fees!
-                      :
-                      "Failed to load data"}",
+                Text( widget.fees!,
+                  // "\$${dataModel != null ? dataModel!.fees! : "Failed to load data"}",
                   style: TextStyle(
                       color: Colors.black54,
                       fontSize: 20,

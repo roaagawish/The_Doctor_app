@@ -24,22 +24,18 @@ class _Welcome_ScreenState extends State<Welcome_Screen> {
             const SizedBox(
               height: 10,
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                  onPressed: () {
-                    // Navigator.push(context, MaterialPageRoute(
-                    // builder: (context) => Navbar_Roots(),
-                    // )
-                    // );
-                    Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => Navbar_Roots()));
-                  },
-                  child: const Text(
-                    'SKIP',
-                    style: TextStyle(fontSize: 20, color: Color(0xff7165D6)),
-                  )),
-            ),
+            // Align(
+            //   alignment: Alignment.centerRight,
+            //   child: TextButton(
+            //       onPressed: () {
+            //         // Navigator.pushReplacement(
+            //         //     context, MaterialPageRoute(builder: (context) => Navbar_Roots()));
+            //       },
+            //       child: const Text(
+            //         'SKIP',
+            //         style: TextStyle(fontSize: 20, color: Color(0xff7165D6)),
+            //       )),
+            // ),
             const SizedBox(
               height: 50,
             ),

@@ -14,11 +14,26 @@ class Settings_Screen extends StatefulWidget {
 }
 
 class _Settings_ScreenState extends State<Settings_Screen> {
+  UserModel? userData;
+  bool loading = true ;
 
+  @override
+  void initState() {
+// TODO: implement initState
+    super.initState();
+    UserModelProvider().getUserData().then((user) {
+      setState(() {
+        userData = user;
+        loading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return  loading ? Center(child: CircularProgressIndicator()) :
+    userData != null ?
+    SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(top: 50, left: 20, right: 20),
         child: Column(
@@ -37,9 +52,9 @@ class _Settings_ScreenState extends State<Settings_Screen> {
             ListTile(
               leading: CircleAvatar(
                 radius: 30,
-                backgroundImage: AssetImage("assets/images/doctor1.jpg"),
+                backgroundImage: AssetImage("assets/images/profileImge.png"),
               ),
-              title: Text("Dr. Doctor Name",
+              title: Text(userData!.name!,
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w500,
@@ -212,6 +227,8 @@ class _Settings_ScreenState extends State<Settings_Screen> {
           ],
         ),
       ),
+    ): Center(
+    child:  Text("Failed to load data"),
     );
   }
 }

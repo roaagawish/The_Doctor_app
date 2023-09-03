@@ -17,6 +17,7 @@ class _Home_ScreenState extends State<Home_Screen> {
     UserModelProvider().getUserData().then((user) {
       setState(() {
         userData = user;
+        loading = false;
       });
     });
   }
@@ -24,8 +25,8 @@ class _Home_ScreenState extends State<Home_Screen> {
   void DoDataModelProvider() {
     DataModelProvider().getData().then((user) {
       setState(() {
+        loading = false;
         dataModel = user;
-
       });
     });
   }
@@ -36,7 +37,7 @@ class _Home_ScreenState extends State<Home_Screen> {
     super.initState();
     DoUserModelProvider();
     DoDataModelProvider();
-    loading = false;
+
   }
 
   List symptoms = [
@@ -52,6 +53,43 @@ class _Home_ScreenState extends State<Home_Screen> {
     "assets/images/doctor2.jpg",
     "assets/images/doctor3.jpg",
     "assets/images/doctor4.jpg",
+  ];
+
+  List data = [
+  {
+  'image' :"assets/images/doctor1.jpg",
+  'name': "Hoda Mohamed",
+  'rating': "4.9",
+  'specialty': "Dermatology" ,
+  'location': 'Cairo',
+  'fees': '200' ,
+  },
+  {
+  'image' :"assets/images/doctor2.jpg",
+  'name': "Manal Farouk",
+  'rating': "4.8" ,
+  'specialty': "Dentistry",
+  'location': "Alexandria",
+  'fees': "250",
+  },
+  {
+  'image' :"assets/images/doctor3.jpg",
+  'name': "Ayman Salah",
+  'rating': "4.6",
+  'specialty': "Surgery" ,
+  'location': "Fayoum",
+  'fees': "500",
+  },
+    {
+      'image' :"assets/images/doctor4.jpg",
+    }
+  // {
+  // 'name': dataModel?.name ,
+  // 'rating': dataModel?.rating,
+  // 'specialty': dataModel?.specialty ,
+  // 'location': dataModel?.location !,
+  // 'fees': dataModel?.fees ,
+  // }
   ];
 
   @override
@@ -77,7 +115,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                           CircleAvatar(
                             radius: 25,
                             backgroundImage:
-                                AssetImage('assets/images/doctor1.jpg'),
+                                AssetImage("assets/images/profileImge.png"),
                           ),
                         ],
                       ),
@@ -258,19 +296,25 @@ class _Home_ScreenState extends State<Home_Screen> {
                         ),
                       ),
                     ),
-                    GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
-                        itemCount: 4,
+                    GridView.count(
+                        crossAxisCount: 2,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
+                        children : [
+                            GestureDetector(
                             onTap: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Appointment_Screen(img: "${imgs[index]}",),
+                                    builder: (context) => Appointment_Screen(
+                                      img: "${data[0]['image']}",
+                                      name:"${data[0]['name']}" ,
+                                      rating: "${data[0]['rating']}",
+                                      location: "${data[0]['location']}",
+                                      fees: "${data[0]['fees']}",
+                                      specialty: "${data[0]['specialty']}",
+                                      // "${imgs[index]}",
+                                    ),
                                   ));
                             },
                             child: Container(
@@ -295,24 +339,23 @@ class _Home_ScreenState extends State<Home_Screen> {
                                   CircleAvatar(
                                     radius: 35,
                                     backgroundImage:
-                                        AssetImage("${imgs[index]}"),
+                                        AssetImage("${data[0]["image"]}"),
                                   ),
-                                  Text(
-                                    userData != null
-                                        ? dataModel!.name!
-                                        :
-                                    "Failed to load data",
+                                  Text(data[0]['name'],
+                                    // dataModel?.name != null
+                                    //     ? data![index]//dataModel!.name!
+                                    //     : "Failed to load data",
                                     style: TextStyle(
                                       fontSize: 18,
                                       color: Colors.black54,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                  Text(
+                                  Text(data[0]['specialty'],
                                     // userData != null
                                     //     ? dataModel!.specialty!
                                     //     :
-                                    "Failed to load data",
+                                    // "Failed to load data",
                                     style: TextStyle(
                                       //fontSize: 10,
                                       color: Colors.black54,
@@ -326,11 +369,10 @@ class _Home_ScreenState extends State<Home_Screen> {
                                         Icons.star,
                                         color: Colors.amber,
                                       ),
-                                      Text(
-                                        userData != null
-                                            ? dataModel!.rating!
-                                            :
-                                        "Failed to load data",
+                                      Text(data[0]['rating'],
+                                        // dataModel?.rating != null
+                                        //     ? data![index]
+                                        //     : "Failed to load data",
                                         style: TextStyle(
                                           color: Colors.black45,
                                         ),
@@ -340,8 +382,339 @@ class _Home_ScreenState extends State<Home_Screen> {
                                 ],
                               ),
                             ),
-                          );
-                        }),
+                            ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Appointment_Screen(
+                                      img: "${data[1]['image']}",
+                                      name:"${data[1]['name']}" ,
+                                      rating: "${data[1]['rating']}",
+                                      location: "${data[1]['location']}",
+                                      fees: "${data[1]['fees']}",
+                                      specialty: "${data[1]['specialty']}",
+                                      // "${imgs[index]}",
+                                    ),
+                                  ));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(
+                                10,
+                              ),
+                              padding: EdgeInsets.symmetric(vertical: 14),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 4,
+                                      spreadRadius: 2,
+                                    ),
+                                  ]),
+                              child: Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 35,
+                                    backgroundImage:
+                                    AssetImage("${data[1]["image"]}"),
+                                  ),
+                                  Text(data[1]['name'],
+                                    // dataModel?.name != null
+                                    //     ? data![index]//dataModel!.name!
+                                    //     : "Failed to load data",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Text(data[1]['specialty'],
+                                    // userData != null
+                                    //     ? dataModel!.specialty!
+                                    //     :
+                                    // "Failed to load data",
+                                    style: TextStyle(
+                                      //fontSize: 10,
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      Text(data[1]['rating'],
+                                        // dataModel?.rating != null
+                                        //     ? data![index]
+                                        //     : "Failed to load data",
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Appointment_Screen(
+                                      img: "${data[2]['image']}",
+                                      name:"${data[2]['name']}" ,
+                                      rating: "${data[2]['rating']}",
+                                      location: "${data[2]['location']}",
+                                      fees: "${data[2]['fees']}",
+                                      specialty: "${data[2]['specialty']}",
+                                      // "${imgs[index]}",
+                                    ),
+                                  ));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(
+                                10,
+                              ),
+                              padding: EdgeInsets.symmetric(vertical: 14),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 4,
+                                      spreadRadius: 2,
+                                    ),
+                                  ]),
+                              child: Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 35,
+                                    backgroundImage:
+                                    AssetImage("${data[2]["image"]}"),
+                                  ),
+                                  Text(data[2]['name'],
+                                    // dataModel?.name != null
+                                    //     ? data![index]//dataModel!.name!
+                                    //     : "Failed to load data",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Text(data[2]['specialty'],
+                                    // userData != null
+                                    //     ? dataModel!.specialty!
+                                    //     :
+                                    // "Failed to load data",
+                                    style: TextStyle(
+                                      //fontSize: 10,
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      Text(data[2]['rating'],
+                                        // dataModel?.rating != null
+                                        //     ? data![index]
+                                        //     : "Failed to load data",
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Appointment_Screen(
+                                      img: "${data[3]['image']}",
+                                      name:"${data[3]['name']}" ,
+                                      rating: "${data[3]['rating']}",
+                                      location: "${data[3]['location']}",
+                                      fees: "${data[3]['fees']}",
+                                      specialty: "${data[3]['specialty']}",
+                                      // "${imgs[index]}",
+                                    ),
+                                  ));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(
+                                10,
+                              ),
+                              padding: EdgeInsets.symmetric(vertical: 14),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 4,
+                                      spreadRadius: 2,
+                                    ),
+                                  ]),
+                              child: Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 35,
+                                    backgroundImage:
+                                    AssetImage("${data[3]["image"]}"),
+                                  ),
+                                  Text(// data[0]['name'],
+                                    dataModel?.name != null
+                                        ? dataModel!.name!
+                                        : "Failed to load data",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black54,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Text( "Cardiology",
+                                    //data[0]['specialty'],
+                                    // userData != null
+                                    //     ? dataModel!.specialty!
+                                    //     :
+                                    // "Failed to load data",
+                                    style: TextStyle(
+                                      //fontSize: 10,
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      Text(//data[0]['rating'],
+                                        dataModel?.rating != null
+                                            ? dataModel!.rating!
+                                            : "Failed to load data",
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )]),
+
+                    // GridView.builder(
+                    //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    //         crossAxisCount: 2),
+                    //     itemCount: 4,
+                    //     shrinkWrap: true,
+                    //     physics: NeverScrollableScrollPhysics(),
+                    //     itemBuilder: (context, index) {
+                    //       return GestureDetector(
+                    //         onTap: () {
+                    //           Navigator.push(
+                    //               context,
+                    //               MaterialPageRoute(
+                    //                 builder: (context) => Appointment_Screen(
+                    //                   img: "${imgs[index]}",
+                    //                 ),
+                    //               ));
+                    //         },
+                    //         child: Container(
+                    //           margin: EdgeInsets.all(
+                    //             10,
+                    //           ),
+                    //           padding: EdgeInsets.symmetric(vertical: 14),
+                    //           decoration: BoxDecoration(
+                    //               color: Colors.white,
+                    //               borderRadius: BorderRadius.circular(10),
+                    //               boxShadow: [
+                    //                 BoxShadow(
+                    //                   color: Colors.black12,
+                    //                   blurRadius: 4,
+                    //                   spreadRadius: 2,
+                    //                 ),
+                    //               ]),
+                    //           child: Column(
+                    //             mainAxisAlignment:
+                    //                 MainAxisAlignment.spaceEvenly,
+                    //             children: [
+                    //               CircleAvatar(
+                    //                 radius: 35,
+                    //                 backgroundImage:
+                    //                     AssetImage("${imgs[index]}"),
+                    //               ),
+                    //               Text(
+                    //                 dataModel?.name != null
+                    //                     ? data![index]//dataModel!.name!
+                    //                     : "Failed to load data",
+                    //                 style: TextStyle(
+                    //                   fontSize: 18,
+                    //                   color: Colors.black54,
+                    //                   fontWeight: FontWeight.w500,
+                    //                 ),
+                    //               ),
+                    //               Text(
+                    //                 // userData != null
+                    //                 //     ? dataModel!.specialty!
+                    //                 //     :
+                    //                 "Failed to load data",
+                    //                 style: TextStyle(
+                    //                   //fontSize: 10,
+                    //                   color: Colors.black54,
+                    //                 ),
+                    //               ),
+                    //               Row(
+                    //                 mainAxisSize: MainAxisSize.min,
+                    //                 mainAxisAlignment: MainAxisAlignment.center,
+                    //                 children: [
+                    //                   Icon(
+                    //                     Icons.star,
+                    //                     color: Colors.amber,
+                    //                   ),
+                    //                   Text(
+                    //                     dataModel?.rating != null
+                    //                         ? data![index]
+                    //                         : "Failed to load data",
+                    //                     style: TextStyle(
+                    //                       color: Colors.black45,
+                    //                     ),
+                    //                   )
+                    //                 ],
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //       );
+                    //     }),
                   ],
                 ),
               )
